@@ -6,11 +6,15 @@ galaxy_info:
   license: MIT
   min_ansible_version: 2.4
   platforms:
-    - name: CentOS
+    - name: EL
       versions:
         - 7
     - name: Ubuntu
       versions:
-        - 18.04
-  galaxy_tags: []
+        - bionic
+  galaxy_tags:
+    - docker
+    - swarm
+    - config
+    - service
 dependencies: []
