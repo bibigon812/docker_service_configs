@@ -1,4 +1,4 @@
-# docker_config
+# docker_service_configs
 
 Prepares configs for the docker_swarm_service module.
 
