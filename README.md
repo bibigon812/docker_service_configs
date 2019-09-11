@@ -2,8 +2,7 @@
 
 Prepares configs for the docker_swarm_service module.
 
-The docker config name will contain the prefix and version suffix, ex.
-'foo_v1'. The configuration version is automatically incremented by 1.
+The docker config name will contain the prefix and version suffix, ex. 'foo_v1'. The configuration version is automatically incremented by 1.
 
 ## Input vars
 
@@ -29,7 +28,7 @@ The docker config name will contain the prefix and version suffix, ex.
         service_name: foo
         service_configs:
           - prefix: foo_config
-            content: "{{ lookup('template', template.j2 ) }}"
+            content: "{{ lookup('template', 'template.j2' ) }}"
             filename: /etc/foo.conf
 
     - name: run foo service
