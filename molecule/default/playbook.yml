@@ -1,0 +1,12 @@
+---
+- name: Converge
+  hosts: all
+  tasks:
+    - include_role:
+        name: docker_service_configs
+      vars:
+        docker_service_name: foo
+        docker_service_configs:
+          - prefix: bar
+            content: Hello world
+            filename: /foo.conf

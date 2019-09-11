@@ -1,0 +1,23 @@
+---
+- name: init docker_service_configs
+  set_fact:
+    docker_service_configs: "{{ [] }}"
+
+- name: "inspect docker service"
+  become: true
+  failed_when: false
+  changed_when: false
+  register: service_info
+  docker_swarm_service_info:
+    name: "{{ docker_service_name }}"
+
+- name: update docker config
+  include_tasks: docker_config.yml
+  vars:
+    config_prefix: "{{ config.prefix }}"
+    config_content: "{{ config.content | trim + '\n' }}"
+    config_filename: "{{ config.filename }}"
+  loop: "{{ docker_service_configs }}"
+  loop_control:
+    label: "{{ config.prefix }}"
+    loop_var: config

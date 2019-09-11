@@ -1,0 +1,39 @@
+---
+- name: set config_name
+  set_fact:
+    config_name: |-
+        {{
+          service_info.service.Spec.TaskTemplate.ContainerSpec.Configs |
+          selectattr('ConfigName', 'match', '^' + config_prefix) |
+          map(attribute='ConfigName') | first
+        }}
+
+- name: set config_id
+  set_fact:
+    config_id: |-
+      {{
+        service_info.service.Spec.TaskTemplate.ContainerSpec.Configs |
+        selectattr('ConfigName', 'equalto', config_name) |
+        map(attribute='ConfigID') | first
+      }}
+
+- name: set config_version
+  set_fact:
+    config_version: "{{ config_name | regex_replace('^.*_v([0-9]+)$', '\\1') }}"
+
+- name: get docker config
+  become: true
+  shell: |
+    set -o pipefail
+    docker config inspect -f '{% raw %}{{ json .Spec.Data }}{% endraw %}' {{ config_name }} | \
+      cut -d'"' -f2 | \
+      base64 -d
+  args:
+    executable: /bin/bash
+  failed_when: false
+  changed_when: false
+  register: output
+
+- name: set config_content_current
+  set_fact:
+    config_content_current: "{{ output.stdout | trim + '\n' }}"

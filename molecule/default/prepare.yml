@@ -1,0 +1,25 @@
+---
+- name: Prepare
+  hosts: all
+  become: true
+  pre_tasks:
+    - name: Install python for Ansible
+      raw: test -e /usr/bin/python || (apt -y update && apt install -y python-minimal)
+      become: true
+      changed_when: false
+      when: ansible_os_family == 'Debian'
+  tasks:
+    - name: Swarm init
+      raw: docker swarm init
+    - name: Install paramiko
+      raw: pip install paramiko
+      # ansible_python_interpreter: /usr/bin/python
+  roles:
+    - role: geerlingguy.repo-epel
+      when: ansible_os_family == 'RedHat'
+    - role: geerlingguy.pip
+      pip_install_packages:
+        - name: docker-compose
+          version: 1.24.1
+    - role: geerlingguy.docker
+      docker_install_compose: false

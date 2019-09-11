@@ -1,0 +1,16 @@
+---
+galaxy_info:
+  author: Dmitriy Yakovlev
+  description: Manages docker configs
+  company: SPB TV
+  license: MIT
+  min_ansible_version: 2.4
+  platforms:
+    - name: CentOS
+      versions:
+        - 7
+    - name: Ubuntu
+      versions:
+        - 18.04
+  galaxy_tags: []
+dependencies: []

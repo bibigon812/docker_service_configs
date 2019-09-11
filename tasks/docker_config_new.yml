@@ -1,0 +1,15 @@
+---
+- name: set config_name
+  set_fact:
+    config_name: "{{ config_prefix }}_v{{ config_version | int + 1 }}"
+
+- name: create docker config
+  become: true
+  register: output
+  docker_config:
+    data: "{{ config_content }}"
+    name: "{{ config_name }}"
+
+- name: set config_id
+  set_fact:
+    config_id: "{{ output.config_id }}"

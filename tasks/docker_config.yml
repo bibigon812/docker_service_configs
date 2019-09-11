@@ -1,0 +1,27 @@
+---
+- include_tasks: docker_config_get.yml
+  when: service_info.exists
+
+- name: set config_version = 0
+  set_fact:
+    config_version: 0
+  when: not service_info.exists
+
+- name: create docker config
+  include_tasks: docker_config_new.yml
+  when: |
+    not service_info.exists or
+    config_content != config_content_current
+
+- name: set docker_service_configs
+  set_fact:
+    docker_service_configs: |-
+      {{
+        docker_service_configs + [
+          {
+            'config_name': config_name,
+            'config_id': config_id,
+            'filename': config_filename
+          }
+        ]
+      }}

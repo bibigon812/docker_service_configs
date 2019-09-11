@@ -1,0 +1,23 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: vagrant
+  provider:
+    name: virtualbox
+lint:
+  name: yamllint
+platforms:
+  - name: centos
+    box: bibigon812/centos7
+  - name: ubuntu
+    box: ubuntu/bionic64
+provisioner:
+  name: ansible
+  log: true
+  lint:
+    name: ansible-lint
+verifier:
+  name: testinfra
+  lint:
+    name: flake8
