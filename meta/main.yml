@@ -1,7 +1,7 @@
 ---
 galaxy_info:
   author: Dmitriy Yakovlev
-  description: Manages docker configs
+  description: Prepares configs for the docker_swarm_service module.
   company: SPB TV
   license: MIT
   min_ansible_version: 2.4
