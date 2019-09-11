@@ -9,7 +9,7 @@
   changed_when: false
   register: service_info
   docker_swarm_service_info:
-    name: "{{ docker_service_name }}"
+    name: "{{ service_name }}"
 
 - name: update docker config
   include_tasks: docker_config.yml
@@ -17,7 +17,7 @@
     config_prefix: "{{ config.prefix }}"
     config_content: "{{ config.content | trim + '\n' }}"
     config_filename: "{{ config.filename }}"
-  loop: "{{ docker_service_configs }}"
+  loop: "{{ service_configs }}"
   loop_control:
     label: "{{ config.prefix }}"
     loop_var: config
