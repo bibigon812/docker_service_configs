@@ -1,6 +1,6 @@
 # docker_config
 
-Manages docker configs.
+Prepares configs for the docker_swarm_service module.
 
 The docker config name will contain the prefix and version suffix, ex.
 'foo_v1'. The configuration version is automatically incremented by 1.
