@@ -2,11 +2,11 @@
 - name: set config_name
   set_fact:
     config_name: |-
-        {{
-          service_info.service.Spec.TaskTemplate.ContainerSpec.Configs |
-          selectattr('ConfigName', 'match', '^' + config_prefix) |
-          map(attribute='ConfigName') | first
-        }}
+      {{
+        service_info.service.Spec.TaskTemplate.ContainerSpec.Configs |
+        selectattr('ConfigName', 'match', '^' + config_prefix) |
+        map(attribute='ConfigName') | first
+      }}
 
 - name: set config_id
   set_fact:
